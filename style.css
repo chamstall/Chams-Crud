@@ -1,9 +1,10 @@
-#update{
-    display:none;
-}
+
 #addUser{
     background-color: #72dfcf;
     color:#fff;
+}
+#updateUser{
+    display: none;
 }
 img{
     width: 250px;
