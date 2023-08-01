@@ -64,9 +64,11 @@ function addData() {
         } else {
             usersList = JSON.parse(localStorage.getItem("usersList"))
         }
-         // Générer un ID unique basé sur le timestamp actuel (en millisecondes)
-         let timestamp = Date.now();
-         let id = timestamp.toString();
+        // Générer un ID unique basé sur le timestamp actuel (en millisecondes)
+        // La méthode Date.now() renvoie le nombre de millisecondes 
+        // écoulées depuis le 1er Janvier 1970 00:00:00 UTC a nos jours.
+        let timestamp = Date.now();
+        let id = timestamp.toString();
         usersList.push({
             "id": id,
             "name": nom,
@@ -82,7 +84,7 @@ function addData() {
 
         // j'envoie les données au niveau de mon api 
         let newUser = {
-            "id":id,
+            "id": id,
             "name": nom,
             "age": age,
             "email": email
@@ -175,26 +177,24 @@ function updateData(index) {
             usersList = JSON.parse(localStorage.getItem("usersList"));
         }
         // ensuite j'effectue les memes modifications dans mon api
-        fetch(`${URL}/${usersList[index].id}`,{ //je met index + 1 car l'id actuel est id = index + 1  
-            method : "PUT",           //l'id est plus grand que l'index d'une unité a chaque fois
-            headers:{
-                "Content-Type":"application/json"
+        const userId = usersList[index].id;
+        fetch(`${URL}/${userId}`, {  
+            method: "PUT",           
+            headers: {
+                "Content-Type": "application/json"
             },
             // dans le corps de ma requete je vais envoyer à mon api 
             // l'objet actuel du tableau qui vient d'etre modifié 
-            // donc l'objet de mon api qui est à l'id index + 1 va etre remplacé par 
-            // usersList[index] qui est le nouvel objet modifié
-            body:JSON.stringify(usersList[index])
-            // en resumé je remplace l'objet de mon api qui a l'id index + 1 par le nouvel objet 
+            // donc l'objet de mon api qui est à l'id actuel va etre remplacé par 
+            // l'objet usersList[index] qui est le nouvel objet modifié
+            body: JSON.stringify(usersList[index])
+            // en resumé je remplace l'objet de mon api qui a l'id actuel par le nouvel objet 
             // modifié qui est stocké dans le localstorage
         })
-        .then(response=>response.json())
-        .then(userUpdated=>{
-            alert("L'utilisateur ci-dessous a été mis à jour avec succès !" + " " + JSON.stringify(userUpdated))
-        })
-        .catch((error)=>console.log("erreur lors de la mise à jour de l'utilisateur",error))
+            .then(response => response.json())
+            .then(userUpdated => {
+                alert("L'utilisateur ci-dessous a été mis à jour avec succès !" + " " + JSON.stringify(userUpdated))
+            })
+            .catch((error) => console.log("erreur lors de la mise à jour de l'utilisateur", error))
     }
 }
-
-
-
