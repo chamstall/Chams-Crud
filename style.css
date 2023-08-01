@@ -1,0 +1,14 @@
+#update{
+    display:none;
+}
+#addUser{
+    background-color: #72dfcf;
+    color:#fff;
+}
+img{
+    width: 250px;
+}
+td{
+    word-wrap: break-word;
+    max-width: 80px;
+}
